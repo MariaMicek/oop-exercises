@@ -24,7 +24,24 @@ function median(array){
     return median
 }
 
+function minNumber(array){
+
+    const newArray = array.sort((x,y) => x - y)
+    return newArray[0]
+
+}
+
+function maxNumber(array){
+
+    const newArray = array.sort((x,y) => x - y)
+    return newArray[newArray.length -1]
+
+}
+
 const myArray = [1, 2, 0, 3, 5, 15]
 console.log(average(myArray))
 console.log(median(myArray))
+console.log(minNumber(myArray))
+console.log(maxNumber(myArray))
+
 
