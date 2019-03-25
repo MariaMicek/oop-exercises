@@ -2,11 +2,29 @@ function average(array) {
     let sum
     let average
     array.reduce(
-        (reduced, element, index, array) => sum = reduced + element, 0
+        (reduced, element) => sum = reduced + element, 0
     )
     average = sum / array.length
     return average
 }
 
-const myArray = [1, 2, 3, 10, 5]
+function median(array){
+    let median
+    const arraySorted = array.concat().sort((x,y) => x - y)
+
+    if (array.length % 2 === 0){
+        const arr1 = arraySorted.concat()
+        const arr2 = arraySorted.slice(array.length / 2)
+        median = (arr1[array.length - 1] + arr2[0]) / 2
+    } else {
+        const middleIndex = arraySorted.slice((arraySorted.length - 1) / 2)
+        median = middleIndex[0]
+    }
+   
+    return median
+}
+
+const myArray = [1, 2, 0, 3, 5, 15]
 console.log(average(myArray))
+console.log(median(myArray))
+
