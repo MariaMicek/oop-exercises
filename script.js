@@ -1,47 +1,65 @@
-function average(array) {
-    let sum
-    let average
-    array.reduce(
-        (reduced, element) => sum = reduced + element, 0
-    )
-    average = sum / array.length
-    return average
-}
+class Calculations {
 
-function median(array){
-    let median
-    const arraySorted = array.concat().sort((x,y) => x - y)
-
-    if (array.length % 2 === 0){
-        const arr1 = arraySorted.concat()
-        const arr2 = arraySorted.slice(array.length / 2)
-        median = (arr1[array.length - 1] + arr2[0]) / 2
-    } else {
-        const middleIndex = arraySorted.slice((arraySorted.length - 1) / 2)
-        median = middleIndex[0]
+    constructor(array) {
+        this.array = array
+        this.arraySorted = this.array.concat().sort((x, y) => x - y)
     }
-   
-    return median
+
+    average() {
+        let sum
+        let average
+        this.array.reduce(
+            (reduced, element) => sum = reduced + element, 0
+        )
+        average = sum / this.array.length
+        
+        return average
+    }
+
+    median() {
+        let median
+        
+        if (this.array.length % 2 === 0) {
+            const arr1 = this.arraySorted.concat()
+            const arr2 = arr1.splice(this.array.length / 2, this.array.length / 2)
+            median = (arr1[arr1.length - 1] + arr2[0]) / 2
+
+        } else {
+            const middleIndex = this.arraySorted.slice((this.array.length - 1) / 2)
+            median = middleIndex[0]
+        }
+
+        return median
+    }
+
+    minNumber() {
+
+        return this.arraySorted[0]
+
+    }
+
+    maxNumber() {
+
+        return this.arraySorted[this.array.length - 1]
+
+    }
+
+    allResults(){
+
+        let objectWithResults = {
+            average: this.average(),
+            median: this.median(),
+            minNumber: this.minNumber(),
+            maxNumber: this.maxNumber(),
+        }
+
+        return objectWithResults
+    }
 }
 
-function minNumber(array){
 
-    const newArray = array.sort((x,y) => x - y)
-    return newArray[0]
+const calculation1 = new Calculations([1,0,2,11,35,16,1,2,3,9,5,75])
+console.log(calculation1.allResults())
 
-}
-
-function maxNumber(array){
-
-    const newArray = array.sort((x,y) => x - y)
-    return newArray[newArray.length -1]
-
-}
-
-const myArray = [1, 2, 0, 3, 5, 15]
-console.log(average(myArray))
-console.log(median(myArray))
-console.log(minNumber(myArray))
-console.log(maxNumber(myArray))
 
 
