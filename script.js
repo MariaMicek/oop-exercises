@@ -2,7 +2,7 @@ class Calculations {
 
     constructor() {
         this.array = []
-        this.arraySorted = this.array.concat().sort((x, y) => x - y)
+        this.arraySorted = []
         this.render()
     }
 
@@ -60,7 +60,8 @@ class Calculations {
     render() {
         const div = document.createElement('div')
         const input = document.createElement('input')
-        const button = document.createElement('button')
+        const buttonAdd = document.createElement('button')
+        const buttonClear = document.createElement('button')
         const array = document.createElement('p')
         const average = document.createElement('p')
         const median = document.createElement('p')
@@ -71,8 +72,9 @@ class Calculations {
 
         input.setAttribute('value', '')
 
-        button.innerText = 'ADD'
-        array.innerText = `Average: ${this.array}`
+        buttonAdd.innerText = 'ADD'
+        buttonClear.innerText = 'CLEAR'
+        array.innerText = `Array: `
         average.innerText = `Average: `
         median.innerText = `Median: `
         min.innerText = `Minimum number: `
@@ -80,13 +82,24 @@ class Calculations {
 
         input.addEventListener(
             'input',
-            () => this.array = event.target.value.split(',')
+            () => {
+                this.array = event.target.value.split(" ")
+                this.array = this.array.map(element => Number(element))
+            }
         )
 
-        button.addEventListener(
+        buttonAdd.addEventListener(
             'click',
             () => {
-                array.innerText = `Average: ${this.array}`
+                this.array.find(element => {
+                    if (isNaN(element)) {
+                        alert('Add only numbers and separate them with spaces')
+                        div.innerText = ''
+                        this.render()
+                        }
+                })
+                this.arraySorted = this.array.concat().sort((x, y) => x - y)
+                array.innerText = `Array: ${this.array}`
                 average.innerText = `Average: ${this.average()}`
                 median.innerText = `Median: ${this.median()}`
                 min.innerText = `Minimum number: ${this.minNumber()}`
@@ -94,11 +107,18 @@ class Calculations {
             }
         )
 
-
+        buttonClear.addEventListener(
+            'click',
+            () => {
+                div.innerText = ''
+                this.render()
+            }
+        )
 
         document.body.appendChild(div)
         div.appendChild(input)
-        div.appendChild(button)
+        div.appendChild(buttonAdd)
+        div.appendChild(buttonClear)
         div.appendChild(array)
         div.appendChild(average)
         div.appendChild(median)
